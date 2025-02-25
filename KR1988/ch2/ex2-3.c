@@ -34,7 +34,7 @@ int htoi(char s[])
     {
         if (i == 0 && d == '0')
             continue;
-        else if (i == 1 && (d == 'x' || d == 'X'))
+        else if (i == 1 && (d == 'x' || d == 'X') && s[0] == '0')
             continue;
         else if (d >= '0' && d <= '9')
             n = n * 16 + (d - '0');
