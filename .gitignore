@@ -50,3 +50,21 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Formatter
+.clang-format
+
+# vscode related
+.vscode/
+
+# Emacs temporary files
+\#*.*\#
+
+# Mac related
+.DS_Store
+
+# Personal files
+play*
+
+# Programs from textbook
+tb_*
