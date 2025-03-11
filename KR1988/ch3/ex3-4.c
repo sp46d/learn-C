@@ -3,41 +3,59 @@
 // (or largest) negative number causes an overflowing integer.
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-char* itos(int number);
+// function prototypes
+void reverse(char str[], size_t n);
+void itos(int number, char str[]);
 
 int main(void)
 {
-    int n;
+    int n, test;
+    char str[100];
 
-    printf("Enter a number: ");
-    scanf("%d", &n);
-    char* d = itos(n);
-
-    printf("Received: %s\n", d);
-    printf("The length of the number: %lu\n", strlen(d));
+    test = -123;
+    printf("Test number: %d\n", test);
+    test >>= 1;
+    printf("1-bit right-shifted: %d\n", test);
     return 0;
+
+    /* printf("Enter a number: "); */
+    /* scanf("%d", &n); */
+
+    /* itos(n, str); */
+    /* printf("Received: %s\n", str); */
+    /* return 0; */
 }
 
-char* itos(int number)
+void itos(int number, char str[])
 {
-    char* result = malloc(100 * sizeof(char));
     int i = 0;
-    result[0] = '\0';
+    int sign;
+
+    if (number < 0) {
+        sign = number;
+        number *= -1; // this line is problematic.
+    }
+
+    str[0] = '\0';
     while (number) {
         int d = number % 10;
-        i++;
-        result[i] = '0' + d;
+        str[++i] = '0' + d;
         number /= 10;
     }
 
-    int j, tmp;
-    for (j = 0; j < i; j++, i--) {
-        tmp = result[j];
-        result[j] = result[i];
-        result[i] = tmp;
+    if (sign < 0)
+        str[++i] = '-';
+
+    reverse(str, i);
+}
+
+void reverse(char str[], size_t n)
+{
+    int i, j, tmp;
+    for (i = 0, j = n; i < j; i++, j--) {
+        tmp = str[i];
+        str[i] = str[j];
+        str[j] = tmp;
     }
-    return result;
 }
