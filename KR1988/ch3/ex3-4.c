@@ -13,18 +13,12 @@ int main(void)
     int n, test;
     char str[100];
 
-    test = -123;
-    printf("Test number: %d\n", test);
-    test >>= 1;
-    printf("1-bit right-shifted: %d\n", test);
+    printf("Enter a number: ");
+    scanf("%d", &n);
+
+    itos(n, str);
+    printf("Received: %s\n", str);
     return 0;
-
-    /* printf("Enter a number: "); */
-    /* scanf("%d", &n); */
-
-    /* itos(n, str); */
-    /* printf("Received: %s\n", str); */
-    /* return 0; */
 }
 
 void itos(int number, char str[])
@@ -34,15 +28,27 @@ void itos(int number, char str[])
 
     if (number < 0) {
         sign = number;
-        number *= -1; // this line is problematic.
+        // why not negative numbers? It's because arithmetic operations on
+        // negative numbers can produce different results depending on the
+        // machine. So it's necessary to convert negative numbers into positive
+        // before the computation for reliable results regardless of machines.
+        // But, this way of conversion can cause an overflow in an edge case,
+        // where the given number is the largest negative number. Thus, a
+        // different way should be sought after.
+        number *= -1;
+        // what if it is given -1234 and I add this number to 5000, then the
+        // result will be 3766. How can I get 1234 out of this 3766? First
+        // multiply 3766 by -1 to make it negative and add 5000 and -3766
+        // together, which results in exactly what I am looking for.
     }
 
     str[0] = '\0';
-    while (number) {
+    // do-while loop is necessary, because it should work even when the given
+    // number is 0
+    do {
         int d = number % 10;
         str[++i] = '0' + d;
-        number /= 10;
-    }
+    } while (number /= 10);
 
     if (sign < 0)
         str[++i] = '-';
