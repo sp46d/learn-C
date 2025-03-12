@@ -26,29 +26,28 @@ int main(void)
 void itob(int n, char s[], unsigned b)
 {
     int i = 0;
-    s[i] = '\0';
 
     do {
         if (b == 16)
-            s[++i] = "0123456789ABCDEF"[n % b];
+            s[i++] = "0123456789ABCDEF"[n % b];
         else
-            s[++i] = '0' + (n % b);
+            s[i++] = '0' + (n % b);
     } while (n /= b);
 
     if (b == 16) {
-        s[++i] = 'x';
-        s[++i] = '0';
+        s[i++] = 'x';
+        s[i++] = '0';
     } else if (b == 8) {
-        s[++i] = '0';
+        s[i++] = '0';
     }
-
+    s[i] = '\0';
     reverse(s, i);
 }
 
 void reverse(char s[], size_t len)
 {
     int i, j, tmp;
-    for (i = 0, j = len; i < j; i++, j--) {
+    for (i = 0, j = len - 1; i < j; i++, j--) {
         tmp = s[i];
         s[i] = s[j];
         s[j] = tmp;
