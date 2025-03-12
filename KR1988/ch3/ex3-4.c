@@ -18,7 +18,7 @@
 
 // function prototypes
 void reverse(char str[], size_t n);
-void itos(int number, char str[]);
+void itoa(int number, char str[]);
 
 int main(void)
 {
@@ -28,12 +28,12 @@ int main(void)
     printf("Enter a number: ");
     scanf("%d", &n);
 
-    itos(n, str);
+    itoa(n, str);
     printf("Received: %s\n", str);
     return 0;
 }
 
-void itos(int number, char str[])
+void itoa(int number, char str[])
 {
     int i = 0;
     int sign;
