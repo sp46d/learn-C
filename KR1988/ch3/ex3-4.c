@@ -14,7 +14,11 @@
 // string. This version of the function takes care of the issue, where the least
 // (or largest) negative number causes an overflowing integer.
 
+#include <limits.h>
 #include <stdio.h>
+
+#define EQ_MAX 1
+#define LESS_MAX 0
 
 // function prototypes
 void reverse(char str[], size_t n);
@@ -25,7 +29,7 @@ int main(void)
     int n, test;
     char str[100];
 
-    printf("Enter a number: ");
+    printf("Enter a number (%d, %d): ", INT_MIN, INT_MAX);
     scanf("%d", &n);
 
     itoa(n, str);
@@ -36,34 +40,43 @@ int main(void)
 void itoa(int number, char str[])
 {
     int i = 0;
+    int state = LESS_MAX;
     int sign;
+
+    // If the given number is negative, it'll be converted into positive. Why
+    // not negative numbers? It's because arithmetic operations on
+    // negative numbers can produce different results depending on the
+    // machine. So it's necessary to convert negative numbers into positive
+    // for reliable results regardless of machines. But, just multiplying the
+    // number by -1 will not suffice due to the issue mentioned above. So, I
+    // chose the following way.
 
     if (number < 0) {
         sign = number;
-        // why not negative numbers? It's because arithmetic operations on
-        // negative numbers can produce different results depending on the
-        // machine. So it's necessary to convert negative numbers into positive
-        // before the computation for reliable results regardless of machines.
-        // But, this way of conversion can cause an overflow in an edge case,
-        // where the given number is the largest negative number. Thus, a
-        // different way should be sought after.
-        number *= -1;
-        // what if it is given -1234 and I add this number to 5000, then the
-        // result will be 3766. How can I get 1234 out of this 3766? First
-        // multiply 3766 by -1 to make it negative and add 5000 and -3766
-        // together, which results in exactly what I am looking for.
+        if (number == INT_MIN) {
+            state = EQ_MAX;
+            number = INT_MAX;
+        } else {
+            number *= -1;
+        }
     }
 
     // do-while loop is necessary, because it should work even when the given
     // number is 0
     do {
         int d = number % 10;
+        if (state == EQ_MAX) {
+            // Since the absolute value of INT_MIN is greater than that of
+            // INT_MAX by one, we compensate it just once.
+            d++;
+            state = LESS_MAX;
+        }
         str[i++] = '0' + d;
     } while (number /= 10);
 
     if (sign < 0)
         str[i++] = '-';
-    
+
     str[i] = '\0';
     reverse(str, i);
 }
