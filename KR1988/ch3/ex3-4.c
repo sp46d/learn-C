@@ -1,3 +1,15 @@
+// In a two's complement number representation, our version of itoa does not
+// handle the largest negative number, that is, the value of n equal to
+// -(2^(wordsize-1)). Explain why not. Modify it to print that value correctly,
+// regardless of the machine on which it runs.
+
+// A: That's because the function itoa first converts the sign of the number to
+// positive and do the rest of the work with this number. In a two's complement
+// number representation, the absolute value of the largest positive number is
+// exactly one less than the absolute value of the largest negative number.
+// Thus, if we convert the largest negative number to positive, we will be
+// having an overflow, which causes a bug. The below is my answer to this issue.
+
 // This program provides a function itos(), which converts an integer into a
 // string. This version of the function takes care of the issue, where the least
 // (or largest) negative number causes an overflowing integer.
