@@ -54,24 +54,24 @@ void itoa(int number, char str[])
         // together, which results in exactly what I am looking for.
     }
 
-    str[0] = '\0';
     // do-while loop is necessary, because it should work even when the given
     // number is 0
     do {
         int d = number % 10;
-        str[++i] = '0' + d;
+        str[i++] = '0' + d;
     } while (number /= 10);
 
     if (sign < 0)
-        str[++i] = '-';
-
+        str[i++] = '-';
+    
+    str[i] = '\0';
     reverse(str, i);
 }
 
 void reverse(char str[], size_t n)
 {
     int i, j, tmp;
-    for (i = 0, j = n; i < j; i++, j--) {
+    for (i = 0, j = n - 1; i < j; i++, j--) {
         tmp = str[i];
         str[i] = str[j];
         str[j] = tmp;
