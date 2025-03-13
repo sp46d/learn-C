@@ -5,8 +5,8 @@
 #include <limits.h>
 #include <stdio.h>
 
-#define EQ_MAX 1
-#define LESS_MAX 0
+#define EQ_MIN 1
+#define NOT_EQ_MIN 0
 
 void itoa(int number, char str[], int width);
 void reverse(char str[], size_t n);
@@ -27,13 +27,13 @@ int main(void)
 void itoa(int number, char str[], int width)
 {
     int i = 0;
-    int state = LESS_MAX;
+    int state = NOT_EQ_MIN;
     int d, sign;
 
     if (number < 0) {
         sign = number;
         if (number == INT_MIN) {
-            state = EQ_MAX;
+            state = EQ_MIN;
             number = INT_MAX;
         } else {
             number *= -1;
@@ -42,9 +42,9 @@ void itoa(int number, char str[], int width)
 
     do {
         d = number % 10;
-        if (state == EQ_MAX) {
+        if (state == EQ_MIN) {
             d++;
-            state = LESS_MAX;
+            state = NOT_EQ_MIN;
         }
         str[i++] = '0' + d;
         width--;
