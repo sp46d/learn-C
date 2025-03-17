@@ -52,5 +52,5 @@ int strindex(char s[], char t[])
         if (k > 0 && t[k] == '\0')
             rightmost_index = i;
     }
-    return rightmost_index >= 0 ? rightmost_index : -1;
+    return rightmost_index;
 }
