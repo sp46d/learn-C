@@ -64,40 +64,40 @@ int main(void)
             break;
         // Exercise 4-4: Print the top element of the stack without popping
         case 'p':
-            if (sp < 1) {
+            if (sp < 1)
                 printf("stack empty\n");
-                command_entered = 1;
-                break;
+            else {
+                printf("The most top element is: %g\n", pop());
+                ++sp;
             }
-            printf("The most top element is: %g\n", pop());
-            ++sp;
             command_entered = 1;
             break;
         // Exercise 4-4: Duplicate the top element of the stack
         case 'd':
-            if (sp < 1) {
+            if (sp < 1)
                 printf("stack empty\n");
-                command_entered = 1;
-                break;
+            else {
+                tmp = pop();
+                for (int i = 0; i < 2; i++)
+                    push(tmp);
+                printf("Top element has been duplicated\n");
             }
-            tmp = pop();
-            for (int i = 0; i < 2; i++)
-                push(tmp);
-            printf("Top element has been duplicated\n");
             command_entered = 1;
             break;
         // Exercise 4-4: Swap the top two elements
         case 's':
             if (sp < 1) {
                 printf("stack empty\n");
-                command_entered = 1;
-                break;
+            } else if (sp < 2) {
+                printf("Can't swap elements when only one element is available "
+                       "in stack\n");
+            } else {
+                tmp1 = pop();
+                tmp2 = pop();
+                push(tmp1);
+                push(tmp2);
+                printf("Top two elements have been swapped\n");
             }
-            tmp1 = pop();
-            tmp2 = pop();
-            push(tmp1);
-            push(tmp2);
-            printf("Top two elements have been swapped\n");
             command_entered = 1;
             break;
         // Exercise 4-4: Clear the stack
@@ -108,15 +108,14 @@ int main(void)
             break;
         // utility command for view: View all the values in the stack
         case 'v':
-            if (sp < 1) {
+            if (sp < 1)
                 printf("stack empty\n");
-                command_entered = 1;
-                break;
+            else {
+                printf("Top: ");
+                for (int i = sp - 1; i > 0; --i)
+                    printf("%g\n", val[i]);
+                printf("Bottom: %g\n", val[0]);
             }
-            printf("Top: ");
-            for (int i = sp - 1; i > 0; --i)
-                printf("%g\n", val[i]);
-            printf("Bottom: %g\n", val[0]);
             command_entered = 1;
             break;
         case '\n':
@@ -173,9 +172,15 @@ int getop(char s[])
         while (isdigit(s[++i] = c = getch()))
             ;
     // Exercise 4-3: provision for negative numbers
-    if (c == '-') // allow for negative numbers
+    if (c == '-') {
         while (isdigit(s[++i] = c = getch()))
             ;
+        if (!isdigit(s[1]) && c != EOF) {
+            s[i] = '\0';
+            ungetch(c);
+            return '-';
+        }
+    } // allow for negative numbers
     s[i] = '\0';
     if (c != EOF)
         ungetch(c);
