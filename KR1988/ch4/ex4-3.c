@@ -176,7 +176,7 @@ int getop(char s[])
         while (isdigit(s[++i] = c = getch()))
             ;
         if (!isdigit(s[1]) && c != EOF) {
-            s[i] = '\0';
+            s[1] = '\0';
             ungetch(c);
             return '-';
         }
