@@ -22,7 +22,6 @@ void push(double);
 double pop(void);
 int getch(void);
 void ungetch(int);
-void clear_stack(void);
 
 int main(void)
 {
