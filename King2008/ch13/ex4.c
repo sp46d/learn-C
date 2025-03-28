@@ -4,12 +4,13 @@
 int read_line(char str[], int n);
 int read_line_a(char str[], int n);
 int read_line_b(char str[], int n);
+int read_line_c(char str[], int n);
 
 int main(void)
 {
     char str[MAX_LEN + 1];
     printf("Enter: ");
-    int num_ch = read_line_b(str, MAX_LEN);
+    int num_ch = read_line_c(str, MAX_LEN);
     printf("Received: %s\nNumber of characters: %d\n", str, num_ch);
     return 0;
 }
@@ -49,6 +50,21 @@ int read_line_b(char str[], int n)
     while ((ch = getchar()) != EOF && ch != '\n' && !isspace(ch))
         if (count < n)
             str[count++] = ch;
+    str[count] = '\0';
+    return count;
+}
+
+// (c) Have it stop reading at the first new-line character, then store the
+//     new-line character in the string
+int read_line_c(char str[], int n)
+{
+    int ch;
+    int count = 0;
+    while ((ch = getchar()) != EOF && ch != '\n')
+        if (count < n)
+            str[count++] = ch;
+    if (count < n && ch == '\n')
+        str[count++] = '\n';
     str[count] = '\0';
     return count;
 }
