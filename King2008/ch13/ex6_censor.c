@@ -6,7 +6,7 @@
 #include <string.h>
 #define BUF_SIZE 100
 
-void censor(char new[], const char original[], const char target_word[]);
+void censor(char* new, const char* original, const char* target_word);
 
 int main(void)
 {
