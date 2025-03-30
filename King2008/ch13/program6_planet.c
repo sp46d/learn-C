@@ -27,14 +27,13 @@ int main(int argc, char* argv[])
 
     // Improved version: now the function is case-insensitive
     int i, j;
-    char **p, *q;
+    char **p, *p1, *p2;
     for (p = &argv[1]; *p != NULL; p++) {
-
         for (i = 0; i < NUM_PLANETS; i++) {
-            for (j = 0, q = planets[i]; *q; j++, q++)
-                if (tolower(*(*p + j)) != tolower(*q))
+            for (p1 = *p, p2 = planets[i]; *p2; ++p1, ++p2)
+                if (tolower(*p1) != tolower(*p2))
                     break;
-            if (*q == '\0' && *(*p + j) == '\0') {
+            if (!*p1 && !*p2) {
                 printf("%s is planet.\n", *p);
                 break;
             }
