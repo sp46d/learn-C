@@ -14,12 +14,11 @@ int main(void)
     while (strlen(word) != 4) {
         printf("Enter word: ");
         scanf("%s", word);
-        if (strcmp(smallest_word, word) > 0) {
+        if (strcmp(smallest_word, word) > 0)
             strcpy(smallest_word, word);
 
-        } else if (strcmp(largest_word, word) < 0) {
+        else if (strcmp(largest_word, word) < 0)
             strcpy(largest_word, word);
-        }
     }
 
     printf("\n");
