@@ -8,10 +8,10 @@ GENERIC_MAX(long);
 
 // GENERIC_MAX(unsigned long);
 // This doesn't work because the type has a blank in its name. When "unsigned
-// long" is passed to the macro, the name of the function is defined as "long"
-// because of the blank that precedes it, and its type is decalred as "unsigned
-// long unsigned", with "unsigned" unnecessarily declared twice, causing the
-// compiler to raise error.
+// long" is passed to the macro, the name of the function will get defined as
+// "long" because of the blank that precedes it, and its type will get decalred
+// as "unsigned long unsigned", with "unsigned" unnecessarily declared twice,
+// causing the compiler to raise error.
 
 // One solution might be to use typedef to re-define the type "unsigned long"
 // with a new name that has no blank in it, like below:
