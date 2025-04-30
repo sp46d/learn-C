@@ -1,0 +1,35 @@
+* Exercise 1.4
+
+Show the contents of the ~id~ array after each /union/ operation when you use the quick-find algorithm (Program I.I) to solve the connectivity problem for the sequence ~0-2~, ~1-4~, ~2-5~, ~3-6~, ~0-4~, ~6-0~, and ~1-3~. Also give the number of times the program accesses the ~id~ array for each input pair.
+
+** Program I.I
+
+#+begin_src c
+#include <stdio.h>
+#define N 10000
+
+int main(void)
+{
+    int i, p, q, t, id[N];
+    for (i = 0; i < N; i++) id[i] = i; // Initiallize id array 
+    while (scanf("%d %d\n", &p, &q) == 2) {
+        if (id[p] == id[q]) continue; // do nothing if p and q are connected
+        for (t = id[p], i = 0; i < N; i++) 
+            if (id[i] == t) id[i] = id[q]; // Union
+        printf(" %d %d\n", p, q);
+    }
+}
+#+end_src
+
+** My answer
+
+|     | id[0] | id[1] | id[2] | id[3] | id[4] | id[5] | id[6] | ... | N of accesses to ~id~ |
+|-----+-------+-------+-------+-------+-------+-------+-------+-----+---------------------|
+|     |     0 |     1 |     2 |     3 |     4 |     5 |     6 | ... |                     |
+| 0-2 |     2 |     1 |     2 |     3 |     4 |     5 |     6 | ... |                     |
+| 1-4 |       |       |       |       |       |       |       | ... |                     |
+| 2-5 |       |       |       |       |       |       |       | ... |                     |
+| 3-6 |       |       |       |       |       |       |       | ... |                     |
+| 0-4 |       |       |       |       |       |       |       | ... |                     |
+| 6-0 |       |       |       |       |       |       |       | ... |                     |
+| 1-3 |       |       |       |       |       |       |       | ... |                     |
