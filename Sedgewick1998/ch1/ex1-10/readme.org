@@ -1,0 +1,33 @@
+* Exercise 1.10
+
+Estimate the minimum amount of time (in days) that would be required for quick find (Program 1.1) to solve a problem with ~10e6~ objects and ~10e9~ input pairs, on a computer capable of executing ~10e9~ instructions per second. Assume that each iteration of the ~while~ loop requires at least 10 instructions.
+
+** Program 1.1
+
+#+begin_src C
+#include <stdio.h>
+#define N 1000
+
+int main(void)
+{
+    int p, q, id[N], t, i;
+    for (i = 0; i < N; i++)
+        id[i] = i;
+    printf("Enter a pair of integers (0-%d): ", N);
+
+    while (scanf("%d %d\n", &p, &q) == 2) {
+            if (id[p] == id[q])
+                continue;
+            for (t = id[p], i = 0; i < N; i++) {
+                if (id[i] == t)
+                    id[i] = id[q];
+            }
+            printf("> %d %d \n", p, q);
+    }
+    return 0;
+}
+#+end_src
+
+** My answer
+
+If we have a problem with ~10e6~ objects and ~10e9~ input pairs, the ~while~ loop has ~10e9~ iterations to run. Although the minimum number of instructions of each iteration of the ~while~ loop is set to 10, this number easily goes up when the two nodes of an input pair need to get merged (i.e. an ~union~ operation). The quick-find algorithm performs an ~union~ operation by iterating over the entire objects, which is ~10e6~ objects here. Each iteration contains at least one instruction to determine whether to end the loop, so at least ~10e6~ instructions. Thus, the number of instructions of ~10e9~ unions on ~10e6~ objects will be at least ~10e15~ instructions, which, if we assume a computer that can process ~10e9~ instructions per second, takes ~10e6~ seconds, which is roughly 11 days. But this estimate doesn't take into account the possibility that some of the given pairs are already connected, so it doesn't need to scan the whole objects for such pairs.
