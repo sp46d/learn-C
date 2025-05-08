@@ -22,7 +22,7 @@ $ ./ex3_4_randnum
 [Ex3-2: randnum] r = 16, N = 100000: Average = 7.469526, Std. Dev. = 4.60697
 [Ex3-2: randnum] r = 16, N = 1000000: Average = 7.479467, Std. Dev. = 4.62608
 
-$ clang -o ex3_4_randfloat ex3-4_randfloat.c ../ex3-2/randfloat.c
+$ clang -o ex3_4_randfloat ex3-4_randfloat.c ../ex3-3/randfloat.c
 $ ./ex3_4_randfloat
 [Ex3-3: randfloat] r = 2, N = 1000: Average = 0.509997, Std. Dev. = 0.4999
 [Ex3-3: randfloat] r = 2, N = 10000: Average = 0.495671, Std. Dev. = 0.499981
