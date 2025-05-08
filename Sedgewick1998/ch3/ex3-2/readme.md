@@ -4,7 +4,7 @@ Test the random-number generator on your system by generating `N` random integer
 
 ## My answer
 
-As the author mentioned in the book, I structure my program into three files.
+As the author suggested in the book, I structure my program into three files.
 
 1. Interface ([`randnum.h`](./randnum.h))
 2. Implementation ([`randnum.c`](./randnum.c))
