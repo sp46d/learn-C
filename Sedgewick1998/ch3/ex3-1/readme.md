@@ -4,38 +4,11 @@ Find the largest and smallest numbers that you can represent with types `int`, `
 
 ## My answer
 
-We can use `limits.h` and `float.h` standard libraries to find the limits of those types as follows:
-
-```C
-#include <float.h> // for FLT_MAX, FLT_MIN, DBL_MAX, DBL_MIN
-#include <limits.h> // for INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, SHRT_MAX, SHRT_MIN
-#include <stdio.h>
-
-int main(void)
-{
-    int d;
-    long int ld;
-    short int sd;
-    float f;
-    double g;
-    printf("1. int (%lu bytes): largest = %d, smallest = %d\n", sizeof(d),
-        INT_MAX, INT_MIN);
-    printf("2. long int (%lu bytes): largest = %ld, smallest = %ld\n",
-        sizeof(ld), LONG_MAX, LONG_MIN);
-    printf("3. short int (%lu bytes): largest = %d, smallest = %d\n",
-        sizeof(sd), SHRT_MAX, SHRT_MIN);
-    printf("4. float (%lu bytes): largest = %f, smallest = %f\n", sizeof(f),
-        FLT_MAX, FLT_MIN);
-    printf("5. double (%lu bytes): largest = %g, smallest = %g\n", sizeof(g),
-        DBL_MAX, DBL_MIN);
-
-    return 0;
-}
-```
-
-And the output of the code above is as follows:
+We can use `limits.h` and `float.h` standard libraries to find the limits of those types as in [`ex3-1.c`](./ex3-1.c). And the output is as follows:
 
 ```
+$ clang -o ex3-1 ex3-1.c
+$ ./ex3-1
 1. int (4 bytes): largest = 2147483647, smallest = -2147483648
 2. long int (8 bytes): largest = 9223372036854775807, smallest = -9223372036854775808
 3. short int (2 bytes): largest = 32767, smallest = -32768
