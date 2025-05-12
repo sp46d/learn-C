@@ -1,7 +1,3 @@
-// Exercise 3.12 Modify our implementation of the sieve of Eratosthenes
-// (Program 3.5) to use an array of (i) chars; and (ii) bits. Determine the
-// effects of these changes on the amount of space and time used by the program.
-
 #include <stdbool.h>
 #include <stdio.h>
 #define N 1000
@@ -31,12 +27,6 @@ int main(void)
     return 0;
 }
 
-// 1. Array of chars. Although we changed from an array of ints to an array of
-// chars, the algorithm still has to go through all the numbers to check if the
-// given number is a prime number. Thus, its running time is still N/2 + N/3 +
-// N/5 + ..., that is, O(NlogN). However, now the array we have to maintain
-// throughout the loop consists of chars (1 byte each) instead of ints (4 bytes
-// each), so the gain from the change is 4-fold on space.
 void find_prime_char(char a[], int size)
 {
     a[0] = a[1] = 0;
@@ -48,12 +38,6 @@ void find_prime_char(char a[], int size)
                 a[i * j] = 0;
 }
 
-// 2. Array of bits. Now the save on space from changing to an array of bits is
-// even bigger than changing to an array of chars. Since an int takes 4 bytes,
-// which is 32 bits, the save on space is now 32-fold, compared to an array of
-// ints. That means, if we need to find prime numbers up to 10000, the space of
-// memory we are going to need will be just 1250 bytes with an array of bits,
-// instead of 40k bytes with an array of ints.
 void find_prime_bit(unsigned int a[], int size, int max_num)
 {
     for (int i = 0; i < size; i++)
