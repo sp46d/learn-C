@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-typedef struct node* list;
+typedef struct node* link;
 struct node {
     int item;
-    list next;
+    link next;
 };
 
-size_t len_list(list node)
+size_t len_list(link node)
 {
     size_t n = 1;
-    list x = node;
+    link x = node;
     while (node != x->next) {
         x = x->next;
         n++;
