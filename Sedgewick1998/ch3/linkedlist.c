@@ -32,14 +32,15 @@ void deletenode(link list, link node)
     free(node_to_be_deleted);
 }
 
-void insertnode(link list, link node)
+// insertnode: insert node of length k into the position following the list node
+void insertnode(link list, link node, int k)
 {
     link x = list->next;
     list->next = node;
-    // in case where there are more than one node to be inserted
+
     link y = node;
-    for (; node != y->next; y = y->next)
-        ;
+    for (int i = 1; i < k; i++)
+        y = y->next;
     y->next = x;
 }
 
