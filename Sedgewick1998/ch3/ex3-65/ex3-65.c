@@ -1,3 +1,7 @@
+// Exercise 3.65. Write a program to fill in a two-dimensional array of 0-1
+// values by setting a[i][j] to 1 if the greatest common divisor of i and j is
+// 1, and to 0 otherwise.
+
 #include <stdio.h>
 #include <stdlib.h>
 
