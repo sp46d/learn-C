@@ -34,9 +34,9 @@ void UFunion(int p, int q)
     }
     if (sz[i] > sz[j]) {
         id[j] = i;
-        sz[j] += sz[i];
+        sz[i] += sz[j];
     } else {
         id[i] = j;
-        sz[i] += sz[j];
+        sz[j] += sz[i];
     }
 }
