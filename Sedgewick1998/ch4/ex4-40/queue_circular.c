@@ -1,14 +1,9 @@
-// To be a circular list, the next node of the tail should be the head of the
-// list. But it doesn't mean that head being equal to tail indicates the list is
-// empty. Why? Suppose that there is one node left in the list and both head and
-// tail point to this same node. The head is equal to the tail, but the list is
-// still not empty. How do we check if the list is empty? Check if either head
-// of tail is null.
-
 // With the circular list, I realize I don't have to maintain both head and tail
-// nodes. Maintaining only the tail node will do the job, because the next node
-// of the tail will be the head of the list. So, QUEUEget() will always return
-// the value from the node following the tail node.
+// nodes. Maintaining only the head node will do the job. As with other
+// algorithms, however, saving space by maintaining only one pointer, not both,
+// comes at a cost of running time. Now we have to loop through the list every
+// time we run either put or get operation. This might not be a good choice for
+// some problems.
 
 #include "queue.h"
 #include <stdio.h>
@@ -20,7 +15,6 @@ typedef struct node {
 } node;
 
 static node* head;
-static node* tail;
 
 static node* NEW(int x, node* next)
 {
@@ -30,11 +24,7 @@ static node* NEW(int x, node* next)
     return new;
 }
 
-void QUEUEinit(void)
-{
-    head = NULL;
-    tail = NULL;
-}
+void QUEUEinit(void) { head = NULL; }
 
 int QUEUEempty(void) { return head == NULL; }
 
@@ -43,12 +33,13 @@ void QUEUEput(int x)
     node* new = NEW(x, head);
     if (QUEUEempty()) {
         head = new;
-        tail = new;
-        tail->next = head;
+        head->next = head;
         return;
     }
-    tail->next = new;
-    tail = new;
+    node* t;
+    for (t = head; head != t->next; t = t->next)
+        ;
+    t->next = new;
 }
 
 int QUEUEget(void)
@@ -58,15 +49,17 @@ int QUEUEget(void)
         return -1;
     }
     int retval = head->item;
-    if (head == tail) {
+    if (head == head->next) {
+        // only one node left in the list
         free(head);
         head = NULL;
-        tail = NULL;
         return retval;
     }
-    node* t = head->next;
-    tail->next = t;
+    node* t;
+    for (t = head; head != t->next; t = t->next)
+        ;
+    t->next = head->next;
     free(head);
-    head = t;
+    head = t->next;
     return retval;
 }
