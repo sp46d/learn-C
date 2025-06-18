@@ -24,10 +24,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-int* rq;
-int N;
-int tail;
-int n_elements;
+static int* rq;
+static int N;
+static int tail;
+static int n_elements;
 
 void RQinit(int maxN)
 {
