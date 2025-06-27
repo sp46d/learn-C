@@ -14,19 +14,33 @@ int main(int argc, char* argv[])
     Stack stack = STACKinit();
     char* s = argv[1];
     int digits[2];
-    int i = 0;
-    int sign = 1;
+    for (int i = 0; i < 2; i++) {
+        digits[i] = 0;
+    }
+    // Remove leading white spaces
+    for (; isspace(*s); s++)
+        ;
     char ch;
+    int sign = 1;
+    int i = 0;
     for (; (ch = *s) != '\0'; s++) {
         if (isdigit(ch)) {
-            digits[i] = sign * (ch - '0');
-            sign = 1;
+            while (isdigit(ch)) {
+                digits[i] = 10 * digits[i] + sign * (ch - '0');
+                s++;
+                ch = *s;
+            }
             i++;
-        } else if (ch == '-') {
+            sign = 1;
+        }
+        if (ch == '-') {
             sign = -1;
         } else if (ch == ' ') {
             if (i != 0) {
                 STACKpush(stack, COMPLEXinit(digits[0], digits[1]));
+                for (int j = 0; j < 2; j++) {
+                    digits[j] = 0;
+                }
                 i = 0;
             }
         } else if (ch == '+' && i == 0) {
