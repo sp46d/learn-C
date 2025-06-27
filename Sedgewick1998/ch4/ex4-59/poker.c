@@ -57,7 +57,7 @@ void POKERbegin(void)
     }
     usleep(1500000);
 
-    printf("<< Initial set of cards are successfully distributed to each "
+    printf("<< Initial set of cards are successfully dealt to each "
            "player >>\n\n");
     sleep(1);
 
@@ -69,7 +69,7 @@ void POKERbegin(void)
     ch = POKERprompt();
     printf("\n");
 
-    printf("<< Flop: Three community cards are drawn after burning one "
+    printf("<< Flop: Three community cards are dealt after burning one "
            "card>>\n");
     sleep(1);
 
@@ -93,7 +93,7 @@ void POKERbegin(void)
     printf("\n");
     ch = POKERprompt();
     printf("\n");
-    printf("<< Turn: One community card is drawn after burning one card >>\n");
+    printf("<< Turn: One community card is dealt after burning one card >>\n");
     sleep(1);
 
     CSTACKpush(burnin, DECKdraw(deck));
@@ -111,7 +111,7 @@ void POKERbegin(void)
     printf("\n");
     ch = POKERprompt();
     printf("\n");
-    printf("<< River: One last community card is drawn after burning one card "
+    printf("<< River: One last community card is dealt after burning one card "
            ">>\n");
     sleep(1);
 
