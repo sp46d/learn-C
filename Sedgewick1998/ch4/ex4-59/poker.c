@@ -19,7 +19,7 @@ static Cstack burnin;
 
 void POKERinit(int n)
 {
-    agents = malloc(n * sizeof(agents));
+    agents = malloc(n * sizeof(Agent));
     n_players = n;
     for (int i = 0; i < n; i++) {
         agents[i] = AGENTinit();
@@ -170,6 +170,7 @@ void POKERdestroy(void)
     for (int i = 0; i < n_players; i++) {
         AGENTdestroy(agents[i]);
     }
+    free(agents);
     AGENTdestroy(board);
     AGENTdestroy(me);
     CSTACKdestroy(burnin);
