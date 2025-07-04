@@ -10,11 +10,15 @@ struct poly {
     struct poly* next;
 };
 
-static Poly FIND(Poly a, int exp)
+static Poly FINDNEXT(Poly a, int exp)
 {
+    if (a->next == NULL) {
+        return NULL;
+    }
+
     Poly p;
-    for (p = a; p != NULL; p = p->next) {
-        if (p->exp == exp) {
+    for (p = a; p->next != NULL; p = p->next) {
+        if (p->next->exp == exp) {
             break;
         }
     }
@@ -40,15 +44,21 @@ Poly POLYadd(Poly a, Poly b)
         return NULL;
     }
 
+    Poly head = POLYterm(0, 0);
+    head->next = a;
     Poly q;
+    Poly t;
     for (Poly p = b; p != NULL; p = p->next) {
-        q = FIND(a, p->exp);
-        if (q != NULL) {
-            q->coeff += p->coeff;
+        q = FINDNEXT(head, p->exp);
+        if (q->next != NULL) {
+            q->next->coeff += p->coeff;
+            if (q->next->coeff == 0) {
+                t = q->next;
+                q->next = t->next;
+                free(t);
+            }
         } else {
-            Poly t = a->next;
-            a->next = POLYterm(p->coeff, p->exp);
-            a->next->next = t;
+            q->next = POLYterm(p->coeff, p->exp);
         }
     }
     return a;
