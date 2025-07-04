@@ -1,6 +1,6 @@
 // Linked list with null head implementation
-
 #include "poly.h"
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -32,6 +32,18 @@ Poly POLYterm(int a, int b)
     new->exp = b;
     new->next = NULL;
     return new;
+}
+
+Poly POLYcreate(int n_terms, ...)
+{
+    va_list args;
+    va_start(args, n_terms);
+    Poly out = NULL;
+    for (int i = 0; i < n_terms; i++) {
+        out = POLYadd(out, va_arg(args, Poly));
+    }
+    va_end(args);
+    return out;
 }
 
 Poly POLYadd(Poly a, Poly b)
