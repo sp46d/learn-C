@@ -25,6 +25,22 @@ static Poly FINDNEXT(Poly a, int exp)
     return p;
 }
 
+static Poly COPY(Poly src)
+{
+    // Poly COPY(Poly): It copies the src into a newly created list and returns
+    // the null head of the created list
+    Poly head = POLYterm(0, 0);
+    Poly p;
+    Poly q;
+    for (Poly t = src; t != NULL; t = t->next) {
+        p = POLYterm(t->coeff, t->exp);
+        q = head->next;
+        head->next = p;
+        p->next = q;
+    }
+    return head;
+}
+
 Poly POLYterm(int a, int b)
 {
     Poly new = malloc(sizeof(struct poly));
@@ -49,15 +65,14 @@ Poly POLYcreate(int n_terms, ...)
 Poly POLYadd(Poly a, Poly b)
 {
     if (a == NULL) {
-        return b;
+        return POLYterm(b->coeff, b->exp);
     } else if (b == NULL) {
-        return a;
+        return POLYterm(a->coeff, a->exp);
     } else if (a == NULL && b == NULL) {
         return NULL;
     }
 
-    Poly head = POLYterm(0, 0);
-    head->next = a;
+    Poly head = COPY(a);
     Poly q;
     Poly t;
     for (Poly p = b; p != NULL; p = p->next) {

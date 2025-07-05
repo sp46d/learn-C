@@ -17,4 +17,16 @@ int main(int argc, char* argv[])
     }
     showPOLY(x);
     printf("= %.4f\n", POLYeval(x, p));
+
+    printf("\n2. Add two polynomials\n");
+    Poly r = POLYcreate(5, POLYterm(2, 4), POLYterm(-1, 3), POLYterm(12, 2),
+        POLYterm(1, 1), POLYterm(-15, 0));
+    Poly s = POLYcreate(5, POLYterm(-2, 4), POLYterm(3, 3), POLYterm(-28, 2),
+        POLYterm(3, 1), POLYterm(22, 0));
+    showPOLY(r);
+    printf("+\n");
+    showPOLY(s);
+    printf("= ");
+    showPOLY(POLYadd(r, s));
+    printf("\n");
 }
