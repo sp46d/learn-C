@@ -73,7 +73,7 @@ Poly POLYadd(Poly a, Poly b)
             q->next = POLYterm(p->coeff, p->exp);
         }
     }
-    return a;
+    return head->next;
 }
 
 Poly POLYmult(Poly a, Poly b)
