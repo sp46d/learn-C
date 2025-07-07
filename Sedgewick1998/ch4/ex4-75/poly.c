@@ -61,16 +61,7 @@ Poly POLYadd(Poly p, Poly q)
 
 Poly POLYsubtract(Poly p, Poly q)
 {
-    Poly r = POLYterm(0, p->N > q->N ? p->N - 1 : q->N - 1);
-    for (int i = 0; i < p->N; i++) {
-        r->a[i] += p->a[i];
-    }
-    POLYdestroy(p);
-    for (int j = 0; j < q->N; j++) {
-        r->a[j] -= q->a[j];
-    }
-    POLYdestroy(q);
-    return r;
+    return POLYadd(p, POLYmult(POLYterm(-1, 0), q));
 }
 
 Poly POLYmult(Poly p, Poly q)
@@ -90,7 +81,7 @@ Poly POLYdiv(Poly p, Poly q)
 {
     // Poly POLYdiv(Poly p, Poly q): Performs polynomial division on
     // Polynomial p (dividend) by Polynomial q (divisor) and returns quotient.
-    // This function ignores resulting remainder. For remainder, see POLYmode
+    // This function ignores resulting remainder. For remainder, see POLYmod
     // below.
     if (p->N < q->N) {
         printf(

@@ -11,6 +11,7 @@ Poly POLYsubtract(Poly, Poly);
 Poly POLYmult(Poly, Poly);
 Poly POLYdiv(Poly, Poly);
 Poly POLYmod(Poly, Poly);
+Poly POLYcomp(Poly, Poly);
 Poly POLYintegral(Poly);
 Poly POLYdiff(Poly);
 float POLYeval(Poly, float);
