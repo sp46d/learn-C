@@ -47,6 +47,18 @@ void POLYdestroy(Poly p)
 
 Poly POLYadd(Poly p, Poly q)
 {
+    if (p == NULL) {
+        Poly r = POLYcopy(q);
+        POLYdestroy(q);
+        return r;
+    } else if (q == NULL) {
+        Poly r = POLYcopy(p);
+        POLYdestroy(p);
+        return r;
+    } else if (p == NULL && q == NULL) {
+        return NULL;
+    }
+
     Poly r = POLYterm(0, p->N > q->N ? p->N - 1 : q->N - 1);
     for (int i = 0; i < p->N; i++) {
         r->a[i] += p->a[i];
@@ -113,6 +125,28 @@ Poly POLYmod(Poly p, Poly q)
     // For quotient, see POLYdiv above.
     Poly quotient = POLYdiv(POLYcopy(p), POLYcopy(q));
     return POLYsubtract(p, POLYmult(quotient, q));
+}
+
+Poly POLYcomp(Poly p, Poly q)
+{
+    // Poly POLYcomp(Poly p, Poly q): Performs a polynomial composition of two
+    // polynomials p and q and returns the resulting polynomial after
+    // composition. Polynomial q goes inside polynomial p. For example, if p =
+    // x^2 + 1 and q = x + 1, then POLYcomp(p, q) will return (x + 1)^2 + 1.
+    // The function destroys polynomials p and q passed to the function as
+    // arguments.
+    Poly s;
+    Poly t;
+    Poly r = NULL;
+    for (int i = 0; i < p->N; i++) {
+        s = POLYterm(p->a[i], 0);
+        for (int j = 0; j < i; j++) {
+            t = POLYcopy(q);
+            s = POLYmult(s, t);
+        }
+        r = POLYadd(r, s);
+    }
+    return r;
 }
 
 Poly POLYintegral(Poly p)

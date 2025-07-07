@@ -21,10 +21,13 @@ int main(int agrc, char* argv[])
     showPOLY(d);
     printf("\n");
     printf("\nMod:\n");
-    Poly m = POLYmod(p, POLYterm(1, 1));
+    Poly m = POLYmod(POLYcopy(p), POLYterm(1, 1));
     showPOLY(m);
     printf("\n");
-    POLYdestroy(d);
+    printf("\nComposition with (x + 1):\n");
+    Poly c = POLYcomp(p, POLYadd(POLYterm(1, 1), POLYterm(1, 0)));
+    showPOLY(c);
+    printf("\n");
+    POLYdestroy(c);
     POLYdestroy(m);
-    // POLYdestroy(t);
 }
