@@ -113,18 +113,21 @@ float POLYeval(Poly p, float x)
 void showPOLY(Poly p)
 {
     int coeff;
-    // Print the first term
-    if ((coeff = p->a[p->N - 1])) {
-        printf("%dx^%d", coeff, p->N - 1);
-    }
-    // Print the rest of the terms
-    for (int i = p->N - 2; i >= 0; i--) {
+    int isfirstterm = 1;
+
+    for (int i = p->N - 1; i >= 0; i--) {
         if ((coeff = p->a[i])) {
-            if (coeff > 0) {
-                printf(" + %d%s%c", coeff, i ? "x^" : "", i ? i + '0' : ' ');
+            if (isfirstterm) {
+                printf("%d%s%c", coeff, i ? "x^" : "", i ? i + '0' : ' ');
+                isfirstterm = 0;
             } else {
-                printf(
-                    " - %d%s%c", coeff * -1, i ? "x^" : "", i ? i + '0' : ' ');
+                if (coeff > 0) {
+                    printf(
+                        " + %d%s%c", coeff, i ? "x^" : "", i ? i + '0' : ' ');
+                } else {
+                    printf(" - %d%s%c", coeff * -1, i ? "x^" : "",
+                        i ? i + '0' : ' ');
+                }
             }
         }
     }
