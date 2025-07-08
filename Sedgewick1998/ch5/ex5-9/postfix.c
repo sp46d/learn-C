@@ -1,6 +1,3 @@
-// Can I do this without using a pushdown stack? Only with recursive calls?
-// I think for this particular implementation, I need to use stack. Recursive
-// calls are used to just replace for or while loops, but not the stack.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
